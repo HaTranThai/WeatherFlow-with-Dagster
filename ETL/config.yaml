@@ -1,6 +1,0 @@
-fetch_data_from_api:
-  api_url: "https://api.weatherapi.com/v1/current.json"
-  api_key: "ca1013fef31f46529b260053242311"
-
-postgres:
-  db_url: "postgresql://postgres:postgres@dagster-postgres:5432/weather_db"
