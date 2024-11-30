@@ -1,0 +1,35 @@
+services:
+  dagster-web:
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile
+    entrypoint: ["sh", "-c"]
+    command: >
+      "dagster dev -h 0.0.0.0 -p 3000 -f etl_job.py"
+    ports:
+      - "3000:3000"
+  
+  dagster-postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      # POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - dagster-postgres:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - dagster-postgres
+
+volumes:
+  dagster-postgres:
