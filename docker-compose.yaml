@@ -114,6 +114,8 @@ services:
     depends_on:
       - broker
       - schema-registry
+    networks:
+      - confluent
   
   dagster-postgres:
     image: postgres:14
@@ -126,6 +128,8 @@ services:
     volumes:
       - dagster-postgres:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - confluent
 
   pgadmin:
     image: dpage/pgadmin4
@@ -136,6 +140,8 @@ services:
       - "8080:80"
     depends_on:
       - dagster-postgres
+    networks:
+      - confluent
 
 volumes:
   dagster-postgres:

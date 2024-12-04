@@ -16,7 +16,7 @@ from datetime import time
 
 from confluent_kafka import Producer
 
-KAFKA_BOOTSTRAP_SERVERS = ['localhost:9092']
+KAFKA_BOOTSTRAP_SERVERS = ['broker:29092']
 KAFKA_TOPIC = 'weather_data'
 
 @resource
@@ -71,7 +71,7 @@ def extract_job():
     data = extract_data()
     send_to_kafka(data)
 
-@sensor(pipeline_name="extract_job")
+@sensor(target=extract_job)
 def weather_api_sensor(context):
     weather_api = weather_api_resource(None)
     api_key = weather_api["api_key"]
