@@ -1,9 +1,6 @@
 FROM python:3.12-slim
 
 ENV DAGSTER_HOME=/app/dagster_home
-ENV DB_URL=postgresql://postgres:ha123@localhost:5432/postgres
-ENV WEATHER_API_KEY=ca1013fef31f46529b260053242311
-ENV WEATHER_API_URL=http://api.weatherapi.com/v1/current.json
 
 RUN mkdir -p /app/dagster_home
 
