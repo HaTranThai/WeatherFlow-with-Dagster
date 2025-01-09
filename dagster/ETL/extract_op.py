@@ -21,7 +21,7 @@ def extract_data(context):
     air_pollution = context.resources.air_pollution_data
     current = context.resources.current_data
 
-    file_path = "\\data\\filtered_vn.json"
+    file_path = "/app/data/filtered_vn_1.json"
 
     with open(file_path, "r", encoding="utf-8") as f:
         data = json.load(f)

@@ -18,7 +18,8 @@ def weather_api_resource(init_context):
 def air_pollution_data_resource(init_context):
     api_key = os.environ.get("WEATHER_API_KEY") 
     api_url = os.environ.get("AIR_POLLUTION_API_URL") 
-    kafka_server = ["broker:29092"]
+    kafka_ip = os.environ.get("KAFKA_ADDRESS")
+    kafka_server = [f"{kafka_ip}:9092"]
 
     return AirPollutionData(api_key, api_url, kafka_server)
 
@@ -26,13 +27,14 @@ def air_pollution_data_resource(init_context):
 def current_data_resource(init_context):
     api_key = os.environ.get("WEATHER_API_KEY") 
     api_url = os.environ.get("CURRENT_API_URL") 
-    kafka_server = ["broker:29092"]
+    kafka_ip = os.environ.get("KAFKA_ADDRESS")
+    kafka_server = [f"{kafka_ip}:9092"]
 
     return CurrentData(api_key, api_url, kafka_server)
 
 @job(resource_defs={"air_pollution_data": air_pollution_data_resource, 
                     "current_data": current_data_resource,
                     "weather_api": weather_api_resource})
-def extract_job():
+def etl_job():
     messages = extract_data()
     send_to_kafka(messages)

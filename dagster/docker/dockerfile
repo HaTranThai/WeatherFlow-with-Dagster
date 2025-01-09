@@ -10,9 +10,13 @@ RUN apt-get update && apt-get install -y \
     
 WORKDIR /app
 
-COPY dagster/requirements.txt .
-COPY dagster/docker/dagster.yaml /app/dagster_home/dagster.yaml
-COPY dagster/ETL /app
+# COPY dagster/requirements.txt .
+# COPY dagster/docker/dagster.yaml /app/dagster_home/dagster.yaml
+# COPY dagster/ETL /app
+
+COPY requirements.txt .
+# COPY dagster/docker/dagster.yaml /app/dagster_home/dagster.yaml
+COPY ETL /app
     
 RUN pip install --no-cache-dir -r requirements.txt
 
